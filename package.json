@@ -9,8 +9,8 @@
     "build:prd": "webpack --config tools/webpack.config.prd.js",
     "prepublish": "npm run build",
     "clean": "rimraf dist build",
-    "lint": "eslint src",
-    "test": "karma start --single-run --no-auto-watch karma.config.js"
+    "lint": "eslint .",
+    "test": "npm run lint && karma start --single-run --no-auto-watch karma.config.js"
   },
   "keywords": [
     "geojs",

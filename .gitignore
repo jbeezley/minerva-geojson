@@ -1,6 +1,7 @@
 build
 dist
 .DS_Store
+.eslintcache
 
 # Created by https://www.gitignore.io/api/node
 
