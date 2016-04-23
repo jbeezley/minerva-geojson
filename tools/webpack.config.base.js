@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = {
   module: {
     loaders: [{
@@ -8,9 +10,7 @@ module.exports = {
   },
   output: {
     libraryTarget: 'umd',
-    library: 'minerva-geojson',
-    path: 'dist',
-    filename: 'minerva-geojson.js'
+    library: 'minerva-geojson'
   },
   resolve: {
     extensions: [

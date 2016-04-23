@@ -57,7 +57,6 @@ module.exports = function (config) {
                         exclude: /(bower_components|node_modules)/,
                         loader: 'babel',
                         query: {
-                            presets: ['es2015'],
                             cacheDirectory: true
                         }
                     }
