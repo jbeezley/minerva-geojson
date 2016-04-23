@@ -10,7 +10,9 @@ module.exports = function (config) {
       ]
     },
     files: [
-      'tests.webpack.js'
+      'tests.webpack.js',
+      'node_modules/jquery/jquery.min.js',
+      'node_modules/d3/d3.min.js'
     ],
     frameworks: [
       'jasmine'
@@ -25,8 +27,8 @@ module.exports = function (config) {
       module: {
         preLoaders: [
           {
-            test: /-test\.js$/,
-            include: /src/,
+            test: /\.js$/,
+            include: /test/,
             exclude: /(bower_components|node_modules)/,
             loader: 'babel',
             query: {
@@ -36,7 +38,7 @@ module.exports = function (config) {
           {
             test: /\.js?$/,
             include: /src/,
-            exclude: /(node_modules|bower_components|__tests__)/,
+            exclude: /(node_modules|bower_components|test)/,
             loader: 'babel-istanbul',
             query: {
               cacheDirectory: true
@@ -47,7 +49,7 @@ module.exports = function (config) {
           {
             test: /\.js$/,
             include: path.resolve(__dirname, '../src'),
-            exclude: /(bower_components|node_modules|__tests__)/,
+            exclude: /(bower_components|node_modules)/,
             loader: 'babel',
             query: {
               cacheDirectory: true

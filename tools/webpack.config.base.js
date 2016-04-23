@@ -17,5 +17,9 @@ module.exports = {
       '',
       '.js'
     ]
+  },
+  externals: {
+    jquery: '$',
+    d3: 'd3'
   }
 };
