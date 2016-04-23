@@ -2,5 +2,12 @@ language: node_js
 node_js:
   - "5"
 
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - npm prune
+
 after_success:
   - npm run codecov
