@@ -20,7 +20,12 @@ module.exports = function (config) {
         preprocessors: {
             'tests.webpack.js': ['webpack', 'sourcemap']
         },
-        reporters: ['progress', 'coverage'],
+        reporters: [
+            'progress',
+            'coverage',
+            'threshold',
+            'kjhtml'
+        ],
         webpack: {
             cache: true,
             devtool: 'inline-source-map',
@@ -52,11 +57,18 @@ module.exports = function (config) {
                         exclude: /(bower_components|node_modules)/,
                         loader: 'babel',
                         query: {
+                            presets: ['es2015'],
                             cacheDirectory: true
                         }
                     }
                 ]
             }
+        },
+        thresholdReporter: {
+            statements: 100,
+            branches: 100,
+            functions: 100,
+            lines: 100
         }
     });
 };

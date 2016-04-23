@@ -1,4 +1,5 @@
 import merge from './merge';
+import _ from 'lodash';
 
 /**
  * Accumulate property values into a summary object.  The
@@ -10,15 +11,13 @@ import merge from './merge';
  * @returns {object}
  */
 function accumulate(features) {
-    var feature, i, accumulated = {}, key;
+    var feature, i, accumulated = {};
 
     for (i = 0; i < features.length; i += 1) {
         feature = features[i];
-        for (key in feature) {
-            if (feature.hasOwnProperty(key)) {
-                accumulated[key] = merge(feature[key], accumulated[key]);
-            }
-        }
+        _.each(feature, function (obj, key) {
+            accumulated[key] = merge(feature[key], accumulated[key]);
+        });
     }
 
     return accumulated;

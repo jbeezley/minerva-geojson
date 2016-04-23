@@ -19,14 +19,14 @@ function merge(value, accumulated) {
             break;
 
         case 'number':
-            if (Number.isFinite(value)) {
+            if (isFinite(value)) {
                 accumulated.nFinite = (accumulated.nFinite || 0) + 1;
                 accumulated.min = Math.min(
-                    accumulated.min || Number.POSITIVE_INFINITY,
+                    accumulated.min !== undefined ? accumulated.min : Number.POSITIVE_INFINITY,
                     value
                 );
                 accumulated.max = Math.max(
-                    accumulated.max || Number.NEGATIVE_INFINITY,
+                    accumulated.max !== undefined ? accumulated.max : Number.NEGATIVE_INFINITY,
                     value
                 );
                 accumulated.sum = (accumulated.sum || 0) + value;
