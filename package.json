@@ -10,7 +10,8 @@
     "prepublish": "npm run build",
     "clean": "rimraf dist build",
     "lint": "eslint .",
-    "test": "npm run lint && karma start --single-run --no-auto-watch karma.config.js"
+    "test": "npm run lint && karma start --single-run --no-auto-watch karma.config.js",
+    "codecov": "codecov"
   },
   "keywords": [
     "geojs",
