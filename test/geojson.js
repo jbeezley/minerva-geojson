@@ -1,5 +1,6 @@
 import merge from '../src/geojson/merge';
 import accumulate from '../src/geojson/accumulate';
+import normalize from '../src/geojson/normalize';
 
 describe('geojson', function () {
     describe('merge', function () {
@@ -77,6 +78,129 @@ describe('geojson', function () {
                     cat: 1
                 }
             }
+        });
+    });
+
+    describe('normalize', function () {
+        it('FeatureCollection', function () {
+            var spec = {
+                type: 'FeatureCollection',
+                features: [
+                    {
+                        type: 'Feature',
+                        geometry: {
+                            type: 'Point',
+                            coordinates: [0, 0]
+                        },
+                        properties: {
+                            a: 1,
+                            b: 'red'
+                        }
+                    }, {
+                        type: 'Feature',
+                        geometry: {
+                            type: 'MultiPoint',
+                            coordinates: [[1, 1], [2, 2]]
+                        },
+                        properties: {
+                            a: -1,
+                            b: 'red'
+                        }
+                    }, {
+                        type: 'Feature',
+                        geometry: {
+                            type: 'Point',
+                            coordinates: [3, 3]
+                        },
+                        properties: {
+                            c: 0
+                        }
+                    }
+                ]
+            };
+            var normalized = normalize(spec);
+
+            expect(normalized).toBe(spec);
+
+            var summary = normalized.summary;
+
+            expect(summary.a.count).toBe(2);
+            expect(summary.a.nFinite).toBe(2);
+            expect(summary.a.min).toBe(-1);
+            expect(summary.a.max).toBe(1);
+
+            expect(summary.b.values).toEqual({
+                'red': 2
+            });
+
+            expect(summary.c.count).toBe(1);
+        });
+
+        it('Feature', function () {
+            var spec = {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [0, 0]
+                },
+                properties: {a: 'red'}
+            };
+
+            expect(normalize(spec)).toEqual({
+                type: 'FeatureCollection',
+                features: [spec],
+                summary: {
+                    a: {
+                        count: 1,
+                        values: {red: 1}
+                    }
+                }
+            });
+        });
+
+        it('GeometryCollection', function () {
+            var spec = {
+                type: 'GeometryCollection',
+                geometries: [
+                    {
+                        type: 'Point',
+                        coordinates: [0, 0]
+                    }
+                ]
+            };
+
+            expect(normalize(spec)).toEqual({
+                type: 'FeatureCollection',
+                features: [{
+                    type: 'Feature',
+                    geometry: spec.geometries[0],
+                    properties: {}
+                }],
+                summary: {}
+            });
+        });
+
+        it('Point', function () {
+            var spec = {
+                type: 'Point',
+                coordinates: [0, 0]
+            };
+
+            expect(normalize(spec)).toEqual({
+                type: 'FeatureCollection',
+                features: [{
+                    type: 'Feature',
+                    geometry: spec,
+                    properties: {}
+                }],
+                summary: {}
+            });
+        });
+
+        it('Invalid', function () {
+            expect(function () {
+                normalize({});
+            }).toThrow();
         });
     });
 });
