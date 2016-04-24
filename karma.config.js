@@ -11,7 +11,7 @@ module.exports = function (config) {
         },
         files: [
             'tests.webpack.js',
-            'node_modules/jquery/jquery.min.js',
+            'node_modules/jquery/dist/jquery.min.js',
             'node_modules/d3/d3.min.js'
         ],
         frameworks: [
