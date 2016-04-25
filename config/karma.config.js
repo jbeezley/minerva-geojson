@@ -18,7 +18,8 @@ module.exports = function (config) {
             'node_modules/backbone/backbone-min.js'
         ],
         frameworks: [
-            'jasmine'
+            'jasmine',
+            'sinon'
         ],
         preprocessors: {
             'tests.webpack.js': ['webpack', 'sourcemap']
