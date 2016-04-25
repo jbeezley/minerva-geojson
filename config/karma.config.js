@@ -2,6 +2,7 @@ var path = require('path');
 
 module.exports = function (config) {
     config.set({
+        basePath: '..',
         browsers: ['PhantomJS'],
         coverageReporter: {
             reporters: [
@@ -12,7 +13,9 @@ module.exports = function (config) {
         files: [
             'tests.webpack.js',
             'node_modules/jquery/dist/jquery.min.js',
-            'node_modules/d3/d3.min.js'
+            'node_modules/d3/d3.min.js',
+            'node_modules/underscore/underscore-min.js',
+            'node_modules/backbone/backbone-min.js'
         ],
         frameworks: [
             'jasmine'
