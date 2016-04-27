@@ -3,7 +3,11 @@ module.exports = {
         loaders: [{
             test: /\.js$/,
             exclude: /(bower_components|node_modules)/,
-            loader: 'babel'
+            loader: 'babel',
+            query: {cacheDirectory: true}
+        }, {
+            test: /\.jade$/,
+            loader: 'jade'
         }]
     },
     output: {
@@ -19,6 +23,7 @@ module.exports = {
     externals: {
         jquery: '$',
         d3: 'd3',
-        backbone: 'Backbone'
+        backbone: 'Backbone',
+        colorbrewer: 'colorbrewer'
     }
 };

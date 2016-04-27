@@ -1,4 +1,4 @@
-var path = require('path');
+var webpackConfig = require('./webpack.config.base.js');
 
 module.exports = function (config) {
     config.set({
@@ -15,7 +15,8 @@ module.exports = function (config) {
             'node_modules/jquery/dist/jquery.min.js',
             'node_modules/d3/d3.min.js',
             'node_modules/underscore/underscore-min.js',
-            'node_modules/backbone/backbone-min.js'
+            'node_modules/backbone/backbone-min.js',
+            'node_modules/colorbrewer/colorbrewer.js'
         ],
         frameworks: [
             'jasmine',
@@ -54,17 +55,7 @@ module.exports = function (config) {
                         }
                     }
                 ],
-                loaders: [
-                    {
-                        test: /\.js$/,
-                        include: path.resolve(__dirname, '../src'),
-                        exclude: /(bower_components|node_modules)/,
-                        loader: 'babel',
-                        query: {
-                            cacheDirectory: true
-                        }
-                    }
-                ]
+                loaders: webpackConfig.module.loaders
             }
         },
         thresholdReporter: {
